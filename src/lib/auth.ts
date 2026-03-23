@@ -1,11 +1,14 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-// import { db } from "@/db"; // your drizzle instance
+import { db } from "@/db";
+
+import { schema } from '@/types/schemas/db'
 
 export const auth = betterAuth({
-  // database: drizzleAdapter(db, {
-  //     provider: "sqlite", // or "mysql", "sqlite"
-  // }),
+  database: drizzleAdapter(db, {
+    provider: "sqlite",
+    schema
+  }),
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
   emailAndPassword: {
     enabled: true,
@@ -15,13 +18,5 @@ export const auth = betterAuth({
   },
   session: {
     expiresIn: 60 * 60 * 24 * 30,
-  },
-  user: {
-    additionalFields: {
-      name: {
-        type: "string",
-        required: true,
-      }
-    }
   }
 });
