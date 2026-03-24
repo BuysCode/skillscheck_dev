@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate": "npx auth@latest generate",
-    "migrate": "npx auth@latest migrate"
+    "generate": "npx drizzle-kit generate --config=./src/drizzleConfig.ts",
+    "migrate": "npx drizzle-kit generate --config=./src/drizzleConfig.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
