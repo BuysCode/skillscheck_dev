@@ -12,7 +12,9 @@ export const userSignUpSchema = z.object({
     z.string()
       .regex(/[A-Z]/, "A senha deve conter no mínimo uma letra maíúscula")
       .regex(/[a-z]/, "A senha deve conter no mínimo uma letra minúscula")
-      .regex(/[0-9]/, "A senha deve conter no mínimo um número"),
+      .regex(/[0-9]/, "A senha deve conter no mínimo um número")
+      .min(8, "A senha deve conter no mínimo 8 caracteres")
+      .max(30, "A senha deve conter no máximo 30 caracteres"),
   confirmPassword: z.string()
 }).refine((data) => data.password === data.confirmPassword, {
   message: "As senhas não coincidem",

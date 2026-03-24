@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { signIn } from "@/lib/auth-client";
 import type { UserSignInInterface } from "@/types/interfaces/UserInterfaces";
 import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -11,6 +10,7 @@ import Link from 'next/link'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userSignInSchema } from "@/types/schemas/userSchemas";
+import { Card } from "@/components/ui/card";
 
 export default function SignInPage() {
   const {register, handleSubmit} = useForm<UserSignInInterface>({
@@ -19,10 +19,6 @@ export default function SignInPage() {
 
   const submitFunc = async (data: UserSignInInterface) => {
     try {
-      await signIn.email({
-        email: data.email,
-        password: data.password
-      });
       redirect("/hub");
     } catch (err) {
       console.error("Erro no login:", err);
@@ -31,7 +27,7 @@ export default function SignInPage() {
 
   return (
     <div className="flex items-center justify-center bg-linear-to-br from-cyan-500 via-blue-500 min-h-screen w-full">
-      <div className="bg-white p-4 rounded-lg space-y-4 border-gray-700 border shadow-lg shadow-gray-800 w-[80%] md:w-96">
+      <Card className="bg-white p-4 rounded-lg space-y-4 border-gray-700 border shadow-lg shadow-gray-800 w-[80%] md:w-96">
         <div className="flex flex-col gap-2">
           <h1 className="text-gray-800 font-bold text-2xl text-center">
             Entre na sua Conta
@@ -49,7 +45,7 @@ export default function SignInPage() {
           </Button>
           <p className="text-gray-700 text-center">Não está cadastrado? <Link className="hover:underline text-gray-600 hover:text-blue-500" href={"/signup"}>Crie uma conta</Link></p>
         </div>
-      </div>
+      </Card>
     </div>
   )
 }

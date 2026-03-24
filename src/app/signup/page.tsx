@@ -2,15 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { signUp } from "@/lib/auth-client";
 import type { UserSignUpInterface } from "@/types/interfaces/UserInterfaces";
 import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-import Link from 'next/link'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userSignUpSchema } from "@/types/schemas/userSchemas";
+import { Card } from "@/components/ui/card";
 
 export default function SignUpPage() {
   const {register, handleSubmit} = useForm<UserSignUpInterface>({
@@ -19,12 +17,6 @@ export default function SignUpPage() {
 
   const submitFunc = async (data: UserSignUpInterface) => {
     try {
-      await signUp.email({
-        email: data.email,
-        password: data.password,
-        name: data.name
-      });
-
       redirect("/hub");
     } catch (err) {
       console.error("Erro no login:", err);
@@ -33,7 +25,7 @@ export default function SignUpPage() {
 
   return (
     <div className="flex items-center justify-center bg-linear-to-br from-cyan-500 via-blue-500 min-h-screen w-full">
-      <div className="bg-white p-4 rounded-lg space-y-4 border-gray-700 border shadow-lg shadow-gray-800 w-[80%] md:w-95">
+      <Card className="bg-white p-4 rounded-lg space-y-4 border-gray-700 border shadow-lg shadow-gray-800 w-[80%] md:w-95">
         <div className="flex flex-col gap-2">
           <h1 className="text-gray-800 font-bold text-2xl text-center">
             Crie sua Conta
@@ -52,7 +44,7 @@ export default function SignUpPage() {
             Cadastrar
           </Button>
         </div>
-      </div>
+      </Card>
     </div>
   )
 }
