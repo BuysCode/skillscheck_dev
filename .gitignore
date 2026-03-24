@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#sqlite
+
+/src/db/migrations
+/src/db/migrations/meta
+src/db/migrations/meta/_journal.json
+data.db
