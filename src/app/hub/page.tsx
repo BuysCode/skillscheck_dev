@@ -2,7 +2,7 @@ import SignInForm from '@/components/SignInForm'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-export default async function SignInPage() {
+export default async function Home() {
   const cookiesList = await cookies()
   
   const requestUser = await fetch('http://localhost:9000/profile', {
@@ -17,5 +17,11 @@ export default async function SignInPage() {
     return redirect('/profile')
   }
 
-  return <SignInForm />
+  return (
+    <div>
+      <h1>
+        Hub
+      </h1>
+    </div>
+  )
 }
