@@ -12,12 +12,15 @@ export default function Header () {
       <a className="hover:scale-105" href='/'>
         <h1 className="font-semibold text-3xl">Skills<span className="inline-block bg-clip-text text-transparent bg-linear-to-br from-cyan-500 to-blue-500">Check</span></h1>
       </a>
-      <ul className="flex flex-row gap-4 items-center">
+      <ul className="hidden md:flex flex-row gap-4 items-center">
         <li className="text-gray-600 hover:text-gray-700 hover:underline">
           <a href="#sobre">Sobre o Projeto</a>
         </li>
         <li className="text-gray-600 hover:text-gray-700 hover:underline">
           <a href="#recursos">Recursos</a>
+        </li>
+        <li className="text-gray-600 hover:text-gray-700 hover:underline">
+          <a href="#como-funciona">Como Funciona?</a>
         </li>
       </ul>
       <div className="flex flex-row gap-4 items-center">
