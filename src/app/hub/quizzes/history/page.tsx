@@ -1,10 +1,10 @@
-import HubHeader from '@/components/HubHeader'
-import { cookies } from 'next/headers'
+import HubHeader from "@/components/HubHeader";
 import { redirect } from 'next/navigation'
+import { cookies } from "next/headers";
 
-export default async function Home() {
+export default async function QuizzesHistory() {
   const cookiesList = await cookies()
-  
+    
   const requestUser = await fetch('http://localhost:9000/profile', {
     headers: {
       cookie: cookiesList.toString(),
@@ -16,13 +16,11 @@ export default async function Home() {
   if (!requestUser.ok) {
     return redirect('/signin')
   }
-
   return (
     <div>
       <HubHeader />
-      <h1>
-        Hub
-      </h1>
     </div>
   )
 }
+
+function QuizzesHistoryTable({ quizzes }: { quizzes: any }) {}

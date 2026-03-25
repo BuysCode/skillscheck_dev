@@ -26,7 +26,7 @@ export default function SignInForm() {
   const submitFunc = async (data: UserSignInInterface) => {
     setIsSubmitting(true)
 		try {
-      const request = await fetch('http://localhost:3000/signin', {
+      const request = await fetch('http://localhost:9000/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export default function SignInForm() {
         return
       }
 
-      return router.replace('/profile')
+      return router.replace('/hub')
     } catch (error) {
       console.log(error)
     }

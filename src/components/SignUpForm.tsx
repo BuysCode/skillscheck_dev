@@ -3,23 +3,45 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { UserSignUpInterface } from "@/types/interfaces/userInterfaces";
-import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userSignUpSchema } from "@/types/schemas/userSchemas";
 import { Card } from "@/components/ui/card";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Spinner } from "./ui/spinner";
 
 export default function SignUpForm() {
-  const {register, handleSubmit} = useForm<UserSignUpInterface>({
+  const {register, handleSubmit, setError} = useForm<UserSignUpInterface>({
     resolver: zodResolver(userSignUpSchema)
   })
 
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+
+  const router = useRouter()
+
   const submitFunc = async (data: UserSignUpInterface) => {
     try {
-      redirect("/hub");
-    } catch (err) {
-      console.error("Erro no login:", err);
+      const request = await fetch('http://localhost:9000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(data),
+      })
+
+      if (!request.ok) {
+        setError('email', { message: 'Credenciais inválidas' })
+        setError('password', { message: 'Credenciais inválidas' })
+        setIsSubmitting(false)
+        return
+      }
+
+      return router.replace('/hub')
+    } catch (error) {
+      console.log(error)
     }
   };
 
@@ -34,14 +56,14 @@ export default function SignUpForm() {
             Crie uma conta para responder aos testes
           </p>
         </div>
-        <Input {...register("name")} className="border border-gray-500 text-gray-800 placeholder:text-gray-500 placeholder:font-medium" type="text" placeholder="Nome de usuÃ¡rio" />
+        <Input {...register("name")} className="border border-gray-500 text-gray-800 placeholder:text-gray-500 placeholder:font-medium" type="text" placeholder="Nome de usuário" />
         <Input {...register("email")} className="border border-gray-500 text-gray-800 placeholder:text-gray-500 placeholder:font-medium" type="text" placeholder="E-mail" />
         <Input {...register("password")} className="border border-gray-500 text-gray-800 placeholder:text-gray-500 placeholder:font-medium" type="password" placeholder="Senha" />
         <Input {...register("confirmPassword")} className="border border-gray-500 text-gray-800 placeholder:text-gray-500 placeholder:font-medium" type="password" placeholder="Confirmar senha" />
 
         <div className="flex flex-col gap-2">
           <Button onClick={handleSubmit(submitFunc)} className="bg-blue-500 text-xl p-4 text-white font-bold hover:bg-blue-700 cursor-pointer w-full" type="submit">
-            Cadastrar
+            {isSubmitting ? <Spinner className="h-6 w-6" /> : "Cadastrar"}
           </Button>
         </div>
       </Card>
