@@ -4,7 +4,7 @@ import { Badge } from "./ui/badge";
 export default function AboutTheProject() {
   return (
     <div id="sobre" className="w-full bg-gray-300/90 flex flex-col items-center justify-center gap-6 py-10">
-      <Badge className="mt-8 text-blue-500 border border-blue-500 bg-cyan-400/30 font-bold">
+      <Badge className="mt-8 p-4 text-blue-500 border border-blue-500 bg-cyan-400/30 font-bold">
         Sobre o Projeto
       </Badge>
       <div className="flex flex-col md:flex-row items-center justify-center gap-8">
