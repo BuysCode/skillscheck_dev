@@ -1,3 +1,5 @@
+import Footer from '@/components/Footer'
+import HubContent from '@/components/HubContent'
 import HubHeader from '@/components/HubHeader'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -20,9 +22,10 @@ export default async function Home() {
   return (
     <div>
       <HubHeader />
-      <h1>
-        Hub
-      </h1>
+      <main className='bg-gray-200'>
+        <HubContent />
+      </main>
+      <Footer />
     </div>
   )
 }

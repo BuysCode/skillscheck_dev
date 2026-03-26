@@ -8,7 +8,7 @@ export default function Header () {
   const router = useRouter()
 
   return (
-    <header className="h-20 p-4 flex items-center justify-between border-b border-b-gray-300 top-0 sticky bg-white">
+    <header className="h-20 p-4 flex items-center justify-between border-b border-b-gray-300 top-0 sticky bg-white z-10">
       <a className="hover:scale-105" href='/'>
         <h1 className="font-semibold text-3xl">Skills<span className="inline-block bg-clip-text text-transparent bg-linear-to-br from-cyan-500 to-blue-500">Check</span></h1>
       </a>

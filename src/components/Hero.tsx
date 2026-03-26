@@ -1,6 +1,12 @@
+'use client'
+
 import Image from "next/image"
+import { Button } from "./ui/button"
+import { useRouter } from "next/navigation"
+import { ChevronRight } from "lucide-react"
 
 export default function Hero () {
+  const router = useRouter()
   return (
     <div className="py-16 w-full bg-gray-200 flex flex-col gap-2 md:gap-0 items-center justify-center md:flex-row">
       <div className="w-[80%] md:w-[50%]">
@@ -14,6 +20,9 @@ export default function Hero () {
           <p className="text-md md:text-sm text-gray-700">
             Escolha uma linguagem, selecione seu nível e prove seus conhecimentos com quizzes dinâmicos gerados de um banco extenso de questões.
           </p>
+          <Button className="mt-2 p-4 font-bold bg-linear-to-br from-cyan-500 to-blue-500 text-white hover:from-cyan-700 hover:to-blue-700 cursor-pointer hover:scale-105" onClick={() => router.push("/signup")}>
+            <ChevronRight className="w-6 h-6" /> Começar agora
+          </Button>
         </div>
       </div>
       <div>
