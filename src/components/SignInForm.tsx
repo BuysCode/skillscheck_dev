@@ -26,7 +26,7 @@ export default function SignInForm() {
   const submitFunc = async (data: UserSignInInterface) => {
     setIsSubmitting(true)
 		try {
-      const request = await fetch('http://localhost:9000/signin', {
+      const request = await fetch('/api/sign_in', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

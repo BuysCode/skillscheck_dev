@@ -6,6 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { useEffect, useState } from "react";
 
 import NewQuizButton from "./newQuiz";
+import { redirect } from "next/navigation";
 
 export default function HubHeader() {
   const [user, setUser] = useState<any>(null)
@@ -14,7 +15,7 @@ export default function HubHeader() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch('http://localhost:9000/profile', {
+        const response = await fetch('/api/profile', {
           credentials: 'include',
         })
         const data = await response.json()
@@ -60,13 +61,13 @@ function HubHeaderAvatar({user}: { user: any }) {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:9000/logout", {
+      const response = await fetch("/api/logout", {
         method: "POST",
         credentials: "include",
       })
 
       if (response.ok) {
-        window.location.href = "/signin"
+        redirect("/signin")
       } else {
         alert("Erro ao fazer logout. Tente novamente.")
       }
@@ -86,7 +87,7 @@ function HubHeaderAvatar({user}: { user: any }) {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
-        <DropdownMenuItem disabled className="text-sm text-gray-600 font-medium">
+        <DropdownMenuItem disabled className="text-sm text-black font-medium">
           {user.name}
         </DropdownMenuItem>
         <DropdownMenuItem disabled className="text-xs text-gray-500">

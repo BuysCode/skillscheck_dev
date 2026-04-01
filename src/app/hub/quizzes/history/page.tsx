@@ -6,11 +6,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card, CardContent } from "@/components/ui/card";
 import Footer from "@/components/Footer";
 import { quizzesHistory } from "@/lib/data/static/history";
+import { getApiUrl } from "@/lib/api";
 
 export default async function QuizzesHistory() {
   const cookiesList = await cookies()
     
-  const requestUser = await fetch('http://localhost:9000/profile', {
+  const requestUser = await fetch(getApiUrl('/api/profile'), {
     headers: {
       cookie: cookiesList.toString(),
     },

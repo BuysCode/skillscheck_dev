@@ -23,7 +23,7 @@ export default function SignUpForm() {
 
   const submitFunc = async (data: UserSignUpInterface) => {
     try {
-      const request = await fetch('http://localhost:9000/signup', {
+      const request = await fetch('/api/sign_up', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

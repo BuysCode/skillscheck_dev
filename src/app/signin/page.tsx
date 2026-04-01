@@ -1,11 +1,12 @@
 import SignInForm from '@/components/SignInForm'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { getApiUrl } from '@/lib/api'
 
 export default async function SignInPage() {
   const cookiesList = await cookies()
   
-  const requestUser = await fetch('http://localhost:9000/profile', {
+  const requestUser = await fetch(getApiUrl('/api/profile'), {
     headers: {
       cookie: cookiesList.toString(),
     },
@@ -14,7 +15,7 @@ export default async function SignInPage() {
   })
   
   if (requestUser.ok) {
-    return redirect('/profile')
+    return redirect('/hub')
   }
 
   return <SignInForm />
