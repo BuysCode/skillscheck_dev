@@ -26,7 +26,12 @@ export default function Hero () {
         </div>
       </div>
       <div>
-        <Image alt="Código" height={300} width={300} src={'/coding-binary-svgrepo-com.svg'} />
+        <Image
+          alt="Código"
+          height={300}
+          width={300}
+          src={'/coding-binary-svgrepo-com.svg'}
+        />
       </div>
     </div>
   )
