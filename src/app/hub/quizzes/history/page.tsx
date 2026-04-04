@@ -6,19 +6,19 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card, CardContent } from "@/components/ui/card";
 import Footer from "@/components/Footer";
 import { quizzesHistory } from "@/lib/data/static/history";
-import { getApiUrl } from "@/lib/api";
+import { backendUrl } from "@/lib/consts";
 
 export default async function QuizzesHistory() {
   const cookiesList = await cookies()
-    
-  const requestUser = await fetch(getApiUrl('/api/profile'), {
+
+  const requestUser = await fetch(`${backendUrl}/profile`, {
     headers: {
       cookie: cookiesList.toString(),
     },
     cache: 'no-store',
     credentials: 'include',
   })
-  
+
   if (!requestUser.ok) {
     return redirect('/signin')
   }

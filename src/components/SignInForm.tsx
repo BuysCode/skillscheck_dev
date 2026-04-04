@@ -13,6 +13,7 @@ import { userSignInSchema } from "@/types/schemas/userSchemas";
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
 import { Spinner } from "./ui/spinner";
+import { backendUrl } from "@/lib/consts";
 
 
 export default function SignInForm() {
@@ -25,8 +26,8 @@ export default function SignInForm() {
 
   const submitFunc = async (data: UserSignInInterface) => {
     setIsSubmitting(true)
-		try {
-      const request = await fetch('/api/sign_in', {
+    try {
+      const request = await fetch(`${backendUrl}/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

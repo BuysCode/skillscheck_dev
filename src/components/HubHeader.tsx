@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 import NewQuizButton from "./newQuiz";
 import { redirect } from "next/navigation";
+import { backendUrl } from "@/lib/consts";
 
 export default function HubHeader() {
   const [user, setUser] = useState<any>(null)
@@ -15,7 +16,7 @@ export default function HubHeader() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch('/api/profile', {
+        const response = await fetch(`${backendUrl}/profile`, {
           credentials: 'include',
         })
         const data = await response.json()
@@ -54,14 +55,14 @@ export default function HubHeader() {
   )
 }
 
-function HubHeaderAvatar({user}: { user: any }) {
+function HubHeaderAvatar({ user }: { user: any }) {
   const getInitials = (name: string) => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
   }
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("/api/logout", {
+      const response = await fetch(`${backendUrl}/logout`, {
         method: "POST",
         credentials: "include",
       })
@@ -77,7 +78,7 @@ function HubHeaderAvatar({user}: { user: any }) {
     }
   }
 
-  return(
+  return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="rounded-full border-2 border-gray-400 cursor-pointer hover:opacity-80 transition">

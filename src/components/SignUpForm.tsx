@@ -11,9 +11,10 @@ import { Card } from "@/components/ui/card";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Spinner } from "./ui/spinner";
+import { backendUrl } from "@/lib/consts";
 
 export default function SignUpForm() {
-  const {register, handleSubmit, setError} = useForm<UserSignUpInterface>({
+  const { register, handleSubmit, setError } = useForm<UserSignUpInterface>({
     resolver: zodResolver(userSignUpSchema)
   })
 
@@ -23,7 +24,7 @@ export default function SignUpForm() {
 
   const submitFunc = async (data: UserSignUpInterface) => {
     try {
-      const request = await fetch('/api/sign_up', {
+      const request = await fetch(`${backendUrl}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
