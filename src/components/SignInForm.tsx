@@ -27,7 +27,7 @@ export default function SignInForm() {
   const submitFunc = async (data: UserSignInInterface) => {
     setIsSubmitting(true)
     try {
-      const request = await fetch(`${backendUrl}/signin`, {
+      const request = await fetch(`${backendUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

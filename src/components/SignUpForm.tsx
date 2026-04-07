@@ -24,7 +24,7 @@ export default function SignUpForm() {
 
   const submitFunc = async (data: UserSignUpInterface) => {
     try {
-      const request = await fetch(`${backendUrl}/signup`, {
+      const request = await fetch(`${backendUrl}/sign_up`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
