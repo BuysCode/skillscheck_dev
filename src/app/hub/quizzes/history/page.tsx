@@ -15,7 +15,7 @@ export default async function QuizzesHistory() {
   }
   return (
     <div>
-      <HubHeader />
+      <HubHeader user={user} />
 
       <main className="p-8 min-h-screen bg-gray-50">
         <div className="max-w-4xl mx-auto">

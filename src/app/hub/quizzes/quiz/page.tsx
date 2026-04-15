@@ -12,7 +12,7 @@ export default async function Quiz() {
 
   return (
     <div className="overflow-y-hidden">
-      <HubHeader />
+      <HubHeader user={user} />
       <QuizPage />
     </div>
   )

@@ -13,7 +13,7 @@ export default async function Home() {
 
   return (
     <div>
-      <HubHeader />
+      <HubHeader user={user} />
       <main className='bg-gray-200'>
         <HubContent />
       </main>

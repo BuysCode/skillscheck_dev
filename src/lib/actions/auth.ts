@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers"
 import ms from "ms"
+import { redirect } from "next/navigation"
 import { UserSignInInterface, UserSignUpInterface } from "@/types/interfaces/userInterfaces"
 import { backendUrl } from "../consts"
 
@@ -76,4 +77,10 @@ export async function getProfileAction() {
     }
 
     return response.json()
+}
+
+export async function logOutAction() {
+    const cookieStore = await cookies()
+    cookieStore.delete("session_token")
+    redirect("/signin")
 }
