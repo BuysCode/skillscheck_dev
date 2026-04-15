@@ -1,21 +1,12 @@
 import HubHeader from "@/components/HubHeader";
 import { QuizPage } from "@/components/QuizPage";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { backendUrl } from "@/lib/consts";
+import { getProfileAction } from "@/lib/actions/auth";
 
 export default async function Quiz() {
-  const cookiesList = await cookies()
+  const user = await getProfileAction()
 
-  const requestUser = await fetch(`${backendUrl}/profile`, {
-    headers: {
-      cookie: cookiesList.toString(),
-    },
-    cache: 'no-store',
-    credentials: 'include',
-  })
-
-  if (!requestUser.ok) {
+  if (!user) {
     return redirect('/signin')
   }
 

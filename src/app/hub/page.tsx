@@ -1,23 +1,13 @@
 import Footer from '@/components/Footer'
 import HubContent from '@/components/HubContent'
 import HubHeader from '@/components/HubHeader'
-import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-
-import { backendUrl } from '@/lib/consts'
+import { getProfileAction } from '@/lib/actions/auth'
 
 export default async function Home() {
-  const cookiesList = await cookies()
+  const user = await getProfileAction()
 
-  const requestUser = await fetch(`${backendUrl}/profile`, {
-    headers: {
-      cookie: cookiesList.toString(),
-    },
-    cache: 'no-store',
-    credentials: 'include',
-  })
-
-  if (!requestUser.ok) {
+  if (!user) {
     return redirect('/signin')
   }
 

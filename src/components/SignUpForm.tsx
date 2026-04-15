@@ -11,7 +11,7 @@ import { Card } from "@/components/ui/card";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Spinner } from "./ui/spinner";
-import { backendUrl } from "@/lib/consts";
+import { signUpAction } from "@/lib/actions/auth";
 
 export default function SignUpForm() {
   const { register, handleSubmit, setError } = useForm<UserSignUpInterface>({
@@ -23,28 +23,18 @@ export default function SignUpForm() {
   const router = useRouter()
 
   const submitFunc = async (data: UserSignUpInterface) => {
-    try {
-      const request = await fetch(`${backendUrl}/sign_up`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(data),
-      })
+    setIsSubmitting(true)
+    const result = await signUpAction(data)
 
-      if (!request.ok) {
-        setError('email', { message: 'Credenciais inválidas' })
-        setError('password', { message: 'Credenciais inválidas' })
-        setIsSubmitting(false)
-        return
-      }
-
-      return router.replace('/hub')
-    } catch (error) {
-      console.log(error)
+    if (!result.success) {
+      setError("email", { message: result.message })
+      setError("password", { message: result.message })
+      setIsSubmitting(false)
+      return
     }
-  };
+
+    router.replace("/hub")
+  }
 
   return (
     <div className="flex items-center justify-center bg-linear-to-br from-cyan-500 to-blue-500 min-h-screen w-full">

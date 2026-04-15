@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { UserSignInInterface } from "@/types/interfaces/userInterfaces";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import Link from 'next/link'
@@ -14,6 +14,9 @@ import { Card } from "@/components/ui/card";
 import { useState } from "react";
 import { Spinner } from "./ui/spinner";
 import { backendUrl } from "@/lib/consts";
+import { cookies } from "next/headers";
+import ms from "ms";
+import { signInAction } from "@/lib/actions/auth";
 
 
 export default function SignInForm() {
@@ -26,28 +29,15 @@ export default function SignInForm() {
 
   const submitFunc = async (data: UserSignInInterface) => {
     setIsSubmitting(true)
-    try {
-      const request = await fetch(`${backendUrl}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(data),
-      })
-
-      if (!request.ok) {
-        setError('email', { message: 'Credenciais inválidas' })
-        setError('password', { message: 'Credenciais inválidas' })
-        setIsSubmitting(false)
-        return
-      }
-
-      return router.replace('/hub')
-    } catch (error) {
-      console.log(error)
+    const result = await signInAction(data)
+    if (!result.success) {
+      setError("email", { message: result.message })
+      setError("password", { message: result.message })
+      setIsSubmitting(false)
+      return
     }
-  };
+    router.replace("/hub")
+  }
 
   return (
     <div className="flex items-center justify-center bg-linear-to-br from-cyan-500 to-blue-500 min-h-screen w-full">

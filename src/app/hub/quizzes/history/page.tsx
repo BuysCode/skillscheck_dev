@@ -1,25 +1,16 @@
 import HubHeader from "@/components/HubHeader";
 import { redirect } from 'next/navigation'
-import { cookies } from "next/headers";
 import type { QuizzesHistory as QuizzesHistoryI, QuizzesHistory } from "@/types/interfaces/quizInterface";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
 import Footer from "@/components/Footer";
 import { quizzesHistory } from "@/lib/data/static/history";
-import { backendUrl } from "@/lib/consts";
+import { getProfileAction } from "@/lib/actions/auth";
 
 export default async function QuizzesHistory() {
-  const cookiesList = await cookies()
+  const user = await getProfileAction()
 
-  const requestUser = await fetch(`${backendUrl}/profile`, {
-    headers: {
-      cookie: cookiesList.toString(),
-    },
-    cache: 'no-store',
-    credentials: 'include',
-  })
-
-  if (!requestUser.ok) {
+  if (!user) {
     return redirect('/signin')
   }
   return (
